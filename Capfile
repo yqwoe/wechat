@@ -1,14 +1,14 @@
 # Load DSL and set up stages
 require 'capistrano/setup'
 require 'capistrano/deploy'
-
 require 'capistrano/rails'
 require 'capistrano/bundler'
 require 'capistrano/rvm'
 require 'capistrano/puma'
-
 # Include tasks from other gems included in your Gemfile
-#
+require "capistrano/scm/git"
+install_plugin Capistrano::SCM::Git
+install_plugin Capistrano::Puma
 # For documentation on these, see for example:
 #
 #   https://github.com/capistrano/rvm

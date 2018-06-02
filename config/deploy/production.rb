@@ -10,12 +10,11 @@ server '207.148.26.208', user: 'root', roles: %w{app web}
 set :user,     'root'
 set :deploy_user, 'root'
 set :application, 'wechat'
-set :scm, :git
 set :repo_url, 'git@github.com:yqwoe/wechat.git'
 set :test
 set :branch, 'master'
 set :deploy_to, '/var/www/wechat'
-
+set :assets_roles, []
 
 set :puma_threads,    [4, 16]
 set :puma_workers,    0
@@ -29,7 +28,6 @@ set :puma_state,      "#{shared_path}/tmp/pids/puma.state"
 set :puma_pid,        "#{shared_path}/tmp/pids/puma.pid"
 set :puma_access_log, "#{release_path}/log/puma.error.log"
 set :puma_error_log,  "#{release_path}/log/puma.access.log"
-set :ssh_options,     { forward_agent: true, user: fetch(:user), keys: %w(~/.ssh/id_rsa.pub) }
 set :puma_preload_app, true
 set :puma_worker_timeout, nil
 set :puma_init_active_record, true  # Change to false when not using ActiveRecord
@@ -73,9 +71,7 @@ namespace :deploy do
   desc 'Restart application'
   task :restart do
     on roles(:app), in: :sequence, wait: 5 do
-      execute "cd #{release_path}; bundle i"
-      execute "cd #{release_path};rails db:migrate RAILS_ENV=production"
-      execute "cd #{release_path}; rails assets:precompile RAILS_ENV=production"
+      Rake::Task["puma:restart"].reenable
       invoke 'puma:restart'
     end
   end
