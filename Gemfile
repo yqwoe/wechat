@@ -51,3 +51,4 @@ end
 gem 'feed-normalizer'
 gem 'feed_parser'
 gem 'rufus-scheduler'
+gem 'figaro'
