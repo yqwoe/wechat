@@ -22,6 +22,19 @@ class Post < ApplicationRecord
       end
       @post
     end
+
+    def fetch_posts
+      feed.items.each do |item|
+        @post = Post.find_by_title(item.title)
+        if @post.nil?
+          post_hash = item
+          @post = Post.new(post_hash.as_json.select {|k,v| Post.attribute_names.include?(k.to_s)})
+          @post.categories = post_hash.categories.to_s
+          @post.item = post_hash.as_json.to_json
+          @post.save!
+        end
+      end
+    end
   end
 
 end
