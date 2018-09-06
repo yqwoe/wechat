@@ -1,9 +1,10 @@
 class HomeController < ApplicationController
 
   def index
-    if check_signature?(params[:signature],params[:timestamp],params[:nonce])
-      return render json: params[:echostr]
-    end
+    # if check_signature?(params[:signature],params[:timestamp],params[:nonce])
+    #   return render json: params[:echostr]
+    # end
+    render json: {version: '1.0.0',name: '嘻唰唰'}
   end
 
   private
