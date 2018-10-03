@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :wechats
   resources :posts
   root to: 'home#index'
   post '/', to: 'home#create'
