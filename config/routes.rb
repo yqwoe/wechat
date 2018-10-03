@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resource :wechat, only: [:index,:show, :create]
+  resource :wechat, only: [:show, :create]
   resources :posts
 
 
