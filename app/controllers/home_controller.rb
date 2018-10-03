@@ -9,7 +9,7 @@ class HomeController < ApplicationController
   end
 
   def create
-    p params
+    Rails.logger.info params
   end
 
   private
