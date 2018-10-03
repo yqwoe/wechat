@@ -1,8 +1,6 @@
 Rails.application.routes.draw do
-  resource :wechat, only: [:show, :create]
+  resource :wechat, only: [:index,:show, :create]
   resources :posts
-  root to: 'home#index'
-  post '/', to: 'home#create'
 
 
   match '*path', via: :all, to: 'home#index'
