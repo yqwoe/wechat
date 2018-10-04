@@ -5,4 +5,13 @@ class WechatsController < ApplicationController
   on :text do |request, content|
     request.reply.text "echo: #{content}" # Just echo
   end
+
+  # 当用户加关注
+  on :event, with: 'subscribe' do |request|
+    request.reply.text "User #{request[:FromUserName]} subscribe now"
+  end
+  # 处理地理位置消息
+  on :label_location do |request|
+    request.reply.text("Label: #{request[:Label]} Location_X: #{request[:Location_X]} Location_Y: #{request[:Location_Y]} Scale: #{request[:Scale]}")
+  end
 end
