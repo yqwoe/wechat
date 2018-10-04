@@ -64,6 +64,7 @@ namespace :deploy do
   task :initial do
     on roles(:app) do
       before 'deploy:restart','deploy:migrate' ,'puma:start'
+      # execute :rake, "db:migrate"
       invoke 'deploy'
     end
   end
